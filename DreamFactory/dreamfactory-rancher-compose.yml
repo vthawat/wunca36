@@ -1,0 +1,14 @@
+version: '2'
+services:
+  DreamFactory:
+    scale: 1
+    start_on_create: true
+  MariaDB:
+    scale: 1
+    start_on_create: true
+  Redis:
+    scale: 1
+    start_on_create: true
+  MongoDB:
+    scale: 1
+    start_on_create: true

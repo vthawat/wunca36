@@ -1,0 +1,49 @@
+version: '2'
+services:
+  DreamFactory:
+    image: dreamfactorysoftware/df-docker:latest
+    environment:
+      MARIADB_HOST: mariadb
+      MARIADB_PASSWORD: lesiy[mariadb
+      MARIADB_USER: root
+      MONGODB_HOST: mongodb
+      REDIS_HOST: redis
+      REDIS_PASSWORD: ''
+    stdin_open: true
+    volumes:
+    - /dreamfactory:/bitnami
+    tty: true
+    links:
+    - MongoDB:mongodb
+    - Redis:redis
+    - MariaDB:mariadb
+    ports:
+    - 8001:80/tcp
+    labels:
+      io.rancher.container.pull_image: always
+  MariaDB:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: lesiy[mariadb
+    stdin_open: true
+    volumes:
+    - /dreamfactory/mariadb:/var/lib/mysql
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
+  Redis:
+    image: redis:latest
+    stdin_open: true
+    volumes:
+    - /dreamfactory/redis:/data
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
+  MongoDB:
+    image: mongo:latest
+    stdin_open: true
+    volumes:
+    - /dreamfactory/mongodb:/data/db
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
