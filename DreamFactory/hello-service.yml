@@ -1,0 +1,13 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Hello api service
+  description: |
+    #### Swagger API description example
+paths:
+  /:
+    get:
+      description: get your name for hello
+      responses:
+        200:
+          description: Echo OK
