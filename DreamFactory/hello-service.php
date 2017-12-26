@@ -7,4 +7,4 @@ $myname = $params['myname'];
 if(empty($myname)) $myname="nobody";
 
 /* return data */
-return ['hello'=>$myname];
+return ['DreamFactory'=>'APIs builders','Hello'=>$myname];
