@@ -1,0 +1,12 @@
+{
+ "resource": [
+   {
+     "name": "Test for posting data to my api",
+     "complete": true
+   },
+   {
+     "name": "Testing to posting mysql and mongo db",
+     "complete": false
+   }
+ ]
+}
