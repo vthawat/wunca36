@@ -1,0 +1,24 @@
+execution:
+- concurrency: 10
+  hold-for: 5m
+  ramp-up: 2m
+  scenario: test_api
+  
+scenarios:
+  test_api:
+    retrieve-resources: false
+    requests:
+      - http://172.31.133.155:8001/api/v2/hello?api_key=d3e75d599eb1437505410caeba962da6987f3a984f858ed571000f34122aef22&myname=Thawat Varachai
+
+reporting:
+- module: final-stats
+- module: console
+- module: blazemeter
+  report-name: Taurus test report
+  test: Taurus test
+  project: Taurus test project
+settings:
+  check-interval: 5s
+  default-executor: jmeter
+
+provisioning: local
