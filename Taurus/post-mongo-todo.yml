@@ -1,0 +1,30 @@
+execution:
+- concurrency: 10
+  hold-for: 5m
+  ramp-up: 2m
+  scenario: post-mongo-todo 
+ 
+scenarios:
+  post-mongo-todo:
+    retrieve-resources: false
+    requests:
+      - url: http://172.31.133.155:8001/api/v2/mongodb/_table/todo
+        method: POST
+        label: post-mongo-todo
+        headers:
+          X-Dreamfactory-API-Key: d3e75d599eb1437505410caeba962da6987f3a984f858ed571000f34122aef22
+          Content-Type: application/json
+        body-file: sample-post-data.json
+
+reporting:
+- module: final-stats
+- module: console
+- module: blazemeter
+  report-name: Taurus test report
+  test: Taurus test
+  project: Taurus test project
+settings:
+  check-interval: 5s
+  default-executor: jmeter
+
+provisioning: local
