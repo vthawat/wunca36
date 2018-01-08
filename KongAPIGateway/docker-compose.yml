@@ -5,7 +5,7 @@ services:
     stdin_open: true
     tty: true
     links:
-    - KongAPIsGateway:kong
+    - KongAPIGateway:kong
     ports:
     - 1337:1337/tcp
     labels:
@@ -13,9 +13,9 @@ services:
   kong-prepare-db:
     image: kong:latest
     environment:
+      KONG_CASSANDRA_CONTACT_POINTS: kong-database
       KONG_DATABASE: cassandra
       KONG_PG_HOST: kong-database
-      KONG_CASSANDRA_CONTACT_POINTS: kong-database
     stdin_open: true
     tty: true
     links:
@@ -27,7 +27,7 @@ services:
     labels:
       io.rancher.container.pull_image: always
       io.rancher.container.start_once: 'true'
-  KongAPIsGateway:
+  KongAPIGateway:
     image: kong:latest
     environment:
       KONG_DATABASE: cassandra
