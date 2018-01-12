@@ -1,14 +1,11 @@
 version: '2'
 services:
-  KongaUI:
+  Kibana:
     scale: 1
     start_on_create: true
-  kong-prepare-db:
+  Elastic:
     scale: 1
     start_on_create: true
-  KongAPIGateway:
-    scale: 1
-    start_on_create: true
-  kong-db:
+  Logstash:
     scale: 1
     start_on_create: true

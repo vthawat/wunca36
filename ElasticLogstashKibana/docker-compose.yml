@@ -1,50 +1,36 @@
 version: '2'
 services:
-  KongaUI:
-    image: pantsel/konga
+  Kibana:
+    image: kibana
     stdin_open: true
     tty: true
     links:
-    - KongAPIGateway:kong
+    - Elastic:elasticsearch
     ports:
-    - 1337:1337/tcp
+    - 5601:5601/tcp
     labels:
       io.rancher.container.pull_image: always
-  kong-prepare-db:
-    image: kong:latest
+  Elastic:
+    image: elasticsearch
     environment:
-      KONG_CASSANDRA_CONTACT_POINTS: kong-database
-      KONG_DATABASE: cassandra
-      KONG_PG_HOST: kong-database
+      ES_JAVA_OPTS: -Xms1g -Xmx1g
     stdin_open: true
     tty: true
+    labels:
+      io.rancher.container.pull_image: always
+  Logstash:
+    image: logstash
+    stdin_open: true
+    volumes:
+    - /data/conf-logstatsh:/conf/logstash
+    tty: true
     links:
-    - kong-db:kong-database
+    - Elastic:elasticsearch
+    ports:
+    - 5000:5000/tcp
+    - 5000:5000/udp
     command:
-    - kong
-    - migrations
-    - up
-    labels:
-      io.rancher.container.pull_image: always
-      io.rancher.container.start_once: 'true'
-  KongAPIGateway:
-    image: kong:latest
-    environment:
-      KONG_DATABASE: cassandra
-      KONG_PG_HOST: kong-database
-      KONG_CASSANDRA_CONTACT_POINTS: kong-database
-    stdin_open: true
-    tty: true
-    links:
-    - kong-db:kong-database
-    ports:
-    - 80:8000/tcp
-    - 443:8443/tcp
-    labels:
-      io.rancher.container.pull_image: always
-  kong-db:
-    image: cassandra:3
-    stdin_open: true
-    tty: true
+    - -f
+    - /conf/logstash/input-rsyslog.conf
     labels:
       io.rancher.container.pull_image: always
