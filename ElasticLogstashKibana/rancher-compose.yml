@@ -1,0 +1,14 @@
+version: '2'
+services:
+  KongaUI:
+    scale: 1
+    start_on_create: true
+  kong-prepare-db:
+    scale: 1
+    start_on_create: true
+  KongAPIGateway:
+    scale: 1
+    start_on_create: true
+  kong-db:
+    scale: 1
+    start_on_create: true
