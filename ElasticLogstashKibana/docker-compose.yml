@@ -22,7 +22,7 @@ services:
     image: logstash
     stdin_open: true
     volumes:
-    - /data/conf-logstatsh:/conf/logstash
+    - /data/conf-logstash:/conf/logstash
     tty: true
     links:
     - Elastic:elasticsearch
